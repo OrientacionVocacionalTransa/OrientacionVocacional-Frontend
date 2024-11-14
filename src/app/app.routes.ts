@@ -3,6 +3,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { LoginComponent } from './components/Auth/login/login.component';
 import { RegisterComponent } from './components/Auth/register/register.component';
 import { ApplicationAdvisorComponent } from './components/Advisor/application-advisor/application-advisor.component';
+import { DashboardFreeComponent } from './components/Student/dashboard-free/dashboard-free.component';
 
 export const routes: Routes = [
     {
@@ -22,7 +23,11 @@ export const routes: Routes = [
         title: 'Aplicación a asesor',
         component: ApplicationAdvisorComponent
       },
-
+      {
+        path: 'dashboard-student',
+        title: 'Dashboard Student',
+        component: DashboardFreeComponent
+  },
     {
         path: '**',
         redirectTo: 'home'
