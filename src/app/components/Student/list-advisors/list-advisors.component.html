@@ -1,0 +1,14 @@
+<div class="blog-card" *ngFor="let advisor of  advisors">
+    <div class="meta">
+      <!-- Usamos la vinculación de atributos para el estilo -->
+      <div class="photo" [style.background-image]="'url(' + advisor.img_profile + ')'"></div>
+    </div>
+    <div class="description">
+      <h1>ID: {{ advisor.id }}</h1>
+      <h2>{{ advisor.firstName }} {{advisor.lastName}}</h2>
+      <p> Correo: {{advisor.email}}</p>
+      <p class="read-more">
+        <a routerLink="/dashboard-student/adviser-profile/{{advisor.id}}">Ver Perfil</a>
+      </p>
+    </div>
+  </div>

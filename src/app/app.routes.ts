@@ -6,6 +6,8 @@ import { ApplicationAdvisorComponent } from './components/Advisor/application-ad
 import { DashboardFreeComponent } from './components/Student/dashboard-free/dashboard-free.component';
 import { CareersComponent } from './components/Student/careers/careers.component';
 import { ProfileStudentComponent } from './components/Student/profile-student/profile-student.component';
+import { ListAdvisoryStudentComponent } from './components/Student/list-advisory-student/list-advisory-student.component';
+import { ListAdvisorsComponent } from './components/Student/list-advisors/list-advisors.component';
 
 export const routes: Routes = [
     {
@@ -41,7 +43,19 @@ export const routes: Routes = [
             path: 'profile-student',
             title: 'Profile Student',
             component: ProfileStudentComponent
-          },        
+          },  
+          
+          {
+            path: 'list-advisories',
+            title: 'Asesorias',
+            component: ListAdvisoryStudentComponent
+          },
+          {
+            path: 'advisors',
+            title: 'Asesores',
+            component: ListAdvisorsComponent
+          },
+
         ]
   },
     {
