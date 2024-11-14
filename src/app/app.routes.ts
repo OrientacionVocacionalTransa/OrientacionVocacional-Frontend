@@ -12,6 +12,9 @@ import { ShowProfileAdviserComponent } from './components/Student/show-profile-a
 import { PagePrincipalComponent } from './components/Advisor/page-principal/page-principal.component';
 import { DashboardAdvisorComponent } from './components/Advisor/dashboard-advisor/dashboard-advisor.component';
 import { CreateAdvisoryAdvisorComponent } from './components/Advisor/create-advisory-advisor/create-advisory-advisor.component';
+import { ListAdvisoryAdvisorComponent } from './components/Advisor/list-advisory-advisor/list-advisory-advisor.component';
+import { ListStudentsComponent } from './components/Advisor/list-students/list-students.component';
+import { ProfileAdvisorComponent } from './components/Advisor/profile-advisor/profile-advisor.component';
 
 export const routes: Routes = [
     {
@@ -40,8 +43,7 @@ export const routes: Routes = [
             path: '',
             title: 'Dashboard Student',
             component: CareersComponent
-          } 
-          ,
+          },
 
           {
             path: 'profile-student',
@@ -83,6 +85,21 @@ export const routes: Routes = [
         path: 'create-advisory-student',
         title: 'Create Advisory',
         component: CreateAdvisoryAdvisorComponent  
+      },
+      {
+        path: 'list-advisories',
+        title: 'Advisories',
+        component: ListAdvisoryAdvisorComponent
+      },
+      {
+        path: 'list-student',
+        title: 'Students',
+        component: ListStudentsComponent
+      },
+      {
+        path: 'profile-advisor',
+        title: 'Profile Advisor',
+        component: ProfileAdvisorComponent
       },
 ]
 },
