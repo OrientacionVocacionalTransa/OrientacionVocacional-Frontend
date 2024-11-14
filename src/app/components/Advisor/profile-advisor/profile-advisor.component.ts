@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { Adviser, FileResponse } from '../../../Authentication/auth.model';
 import { AuthService } from '../../../service/auth.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-profile-advisor',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule,RouterLink, RouterOutlet, RouterLinkActive],
   templateUrl: './profile-advisor.component.html',
   styleUrl: './profile-advisor.component.scss'
 })

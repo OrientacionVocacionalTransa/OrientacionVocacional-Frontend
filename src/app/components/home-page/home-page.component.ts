@@ -1,10 +1,11 @@
+import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, HttpClientModule,RouterLinkActive],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss'
 })

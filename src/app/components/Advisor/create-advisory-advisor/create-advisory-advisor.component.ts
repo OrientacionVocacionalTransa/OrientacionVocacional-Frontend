@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdvisoryService } from '../../../service/advisory.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-advisory-advisor',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './create-advisory-advisor.component.html',
   styleUrl: './create-advisory-advisor.component.scss'
 })

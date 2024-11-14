@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdvisoryService } from '../../../service/advisory.service';
 import { AuthService } from '../../../service/auth.service';
 import { AdvisoryDTO } from '../../../Authentication/auth.model';
 import { environment } from '../../../../environments/environment';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-list-advisory-advisor',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './list-advisory-advisor.component.html',
   styleUrl: './list-advisory-advisor.component.scss'
 })

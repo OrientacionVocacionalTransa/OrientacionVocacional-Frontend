@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../../../Authentication/auth.model';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-free',
   standalone: true,
-  imports: [CommonModule,RouterLink,ReactiveFormsModule,FormsModule,RouterOutlet,RouterLinkActive],
+  imports: [CommonModule,RouterLink,ReactiveFormsModule,FormsModule,RouterOutlet,RouterLinkActive, HttpClientModule],
   templateUrl: './dashboard-free.component.html',
   styleUrl: './dashboard-free.component.scss'
 })

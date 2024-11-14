@@ -63,7 +63,7 @@ export class RegisterComponent {
         this.auth.login(email, password, (token) => {
           console.log('Token recibido en el callback:', token);
         }).subscribe({
-          next: () => this.router.navigate(['/dashboard-advisor']),
+          next: () => this.router.navigate(['/dashboard-student']),
           error: (err) => {
             console.error('Login Failed', err);
           }
