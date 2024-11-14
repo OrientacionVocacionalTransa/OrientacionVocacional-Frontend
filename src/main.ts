@@ -9,6 +9,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideHttpClient(withFetch()),
-    provideClientHydration(),
+    provideClientHydration()
   ],
 }).catch(err => console.error(err));
