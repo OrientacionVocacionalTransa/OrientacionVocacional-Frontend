@@ -6,6 +6,11 @@ import { ApplicationAdvisorComponent } from './components/Advisor/application-ad
 import { DashboardFreeComponent } from './components/Student/dashboard-free/dashboard-free.component';
 import { CareersComponent } from './components/Student/careers/careers.component';
 import { ProfileStudentComponent } from './components/Student/profile-student/profile-student.component';
+import { ListAdvisoryStudentComponent } from './components/Student/list-advisory-student/list-advisory-student.component';
+import { ListAdvisorsComponent } from './components/Student/list-advisors/list-advisors.component';
+import { ShowProfileAdviserComponent } from './components/Student/show-profile-adviser/show-profile-adviser.component';
+import { PagePrincipalComponent } from './components/Advisor/page-principal/page-principal.component';
+import { DashboardAdvisorComponent } from './components/Advisor/dashboard-advisor/dashboard-advisor.component';
 
 export const routes: Routes = [
     {
@@ -41,9 +46,41 @@ export const routes: Routes = [
             path: 'profile-student',
             title: 'Profile Student',
             component: ProfileStudentComponent
-          },        
+          },  
+          
+          {
+            path: 'list-advisories',
+            title: 'Asesorias',
+            component: ListAdvisoryStudentComponent
+          },
+          {
+            path: 'advisors',
+            title: 'Asesores',
+            component: ListAdvisorsComponent
+          },
+
+         {
+          path: 'adviser-profile/:id',
+          title: 'Perfil Asesor',
+          component: ShowProfileAdviserComponent
+        }
+
         ]
   },
+
+  {
+    path: 'dashboard',
+    title: 'Dashboard Advisor',
+    component: PagePrincipalComponent,
+    children: [
+      {
+        path: 'advisor',
+        title: 'Dashboard Advisor',
+        component: DashboardAdvisorComponent
+      },
+]
+},
+
     {
         path: '**',
         redirectTo: 'home'

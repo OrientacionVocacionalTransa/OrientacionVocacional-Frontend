@@ -1,0 +1,43 @@
+<a routerLink="/dashboard-student/advisors" class="back">
+    <span class="material-icons-sharp">arrow_back</span> <h3>Regresar</h3>
+</a>
+ <main class="profile-container">
+    
+    <section class="profile-card">
+      <img [src]="advisor.img_profile" alt="Foto del asesor" class="profile-image">
+      <h2>Pefil de {{ advisor.firstName }}</h2>
+      <p>Especialidad:</p>
+      <h3>{{advisor.specialty}}</h3>
+    </section>
+  
+    <!-- Información de Perfil -->
+    <section class="profile-details">
+      <div class="profile-info" *ngIf="advisor">
+        <div class="info-group">
+          <label>Nombre:</label>
+          <span class="static-text">{{ advisor.firstName }}</span>
+        </div>
+        <div class="info-group">
+          <label>Apellidos:</label>
+          <span class="static-text"> {{ advisor.lastName }}</span>
+        </div>
+        <div class="info-group">
+          <label>Gmail:</label>
+          <span class="static-text"> {{ advisor.email }}</span>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Horario -->
+    <section class="horario-container">
+      <p class="horario-title">HORARIO:</p>
+      <div class="horario-escalera">
+        <div class="horario-item"><span>Lunes</span> <span>7 am - 9 pm</span></div>
+        <div class="horario-item"><span>Martes</span> <span>7 am - 9 pm</span></div>
+        <div class="horario-item"><span>Miércoles</span> <span>7 am - 9 pm</span></div>
+        <div class="horario-item"><span>Jueves</span> <span>7 am - 9 pm</span></div>
+        <div class="horario-item"><span>Viernes</span> <span>7 am - 9 pm</span></div>
+        <div class="horario-item"><span>Sábado</span> <span>7 am - 9 pm</span></div>
+      </div>
+    </section>
+  </main>
