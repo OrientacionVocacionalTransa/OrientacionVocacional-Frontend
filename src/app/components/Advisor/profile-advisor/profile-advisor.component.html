@@ -1,0 +1,77 @@
+
+<h1>Perfil Asesor</h1>
+<div class="profile-edit-container">
+    <h2>Editar Perfil</h2>
+  </div>
+
+
+  <main class="profile-container">
+  <section class="profile-card">
+    <img [src]="user.img_profile" alt="" class="profile-image">
+    <h2>Bienvenido {{user.firstName}}</h2>
+    <p>Especialidad:</p>
+    <h3>{{user.specialty}}</h3>
+  </section>
+  
+  <!-- Segunda Columna: Campos de Formulario -->
+  <section class="profile-form">
+    <form (ngSubmit)="onSubmit()" #profileForm="ngForm">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" [(ngModel)]="user.firstName" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Apellidos:</label>
+        <input type="text" [(ngModel)]="user.lastName" name="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Correo Electronico:</label>
+        <input type="email" [(ngModel)]="user.email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="file">Cambiar Foto de Perfil:</label>
+        <input type="file" (change)="onFileSelected($event)">
+      </div>
+      <div class="button-group">
+        <button type="submit" class="edit-button">Guardar Cambios</button>
+        
+      </div>
+
+
+    </form>
+    
+  </section>
+  
+  <!-- Tercera Columna: Horario -->
+  <section class="horario-container">
+    <p class="horario-title">HORARIO:</p>
+    <div class="horario-escalera">
+      <div class="horario-item">
+        <span class="day">Lunes</span>
+        <span class="hours">7 am - 9 pm</span>
+      </div>
+      <div class="horario-item">
+        <span class="day">Martes</span>
+        <span class="hours">7 am - 9 pm</span>
+      </div>
+      <div class="horario-item">
+        <span class="day">Miércoles</span>
+        <span class="hours">7 am - 9 pm</span>
+      </div>
+      <div class="horario-item">
+        <span class="day">Jueves</span>
+        <span class="hours">7 am - 9 pm</span>
+      </div>
+      <div class="horario-item">
+        <span class="day">Viernes</span>
+        <span class="hours">7 am - 9 pm</span>
+      </div>
+      <div class="horario-item">
+        <span class="day">Sábado</span>
+        <span class="hours">7 am - 9 pm</span>
+      </div>
+    </div>
+  </section>
+  </main>
+
