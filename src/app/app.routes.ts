@@ -5,6 +5,7 @@ import { RegisterComponent } from './components/Auth/register/register.component
 import { ApplicationAdvisorComponent } from './components/Advisor/application-advisor/application-advisor.component';
 import { DashboardFreeComponent } from './components/Student/dashboard-free/dashboard-free.component';
 import { CareersComponent } from './components/Student/careers/careers.component';
+import { ProfileStudentComponent } from './components/Student/profile-student/profile-student.component';
 
 export const routes: Routes = [
     {
@@ -33,7 +34,15 @@ export const routes: Routes = [
             path: '',
             title: 'Dashboard Student',
             component: CareersComponent
-          } ]
+          } 
+          ,
+
+          {
+            path: 'profile-student',
+            title: 'Profile Student',
+            component: ProfileStudentComponent
+          },        
+        ]
   },
     {
         path: '**',
