@@ -11,6 +11,7 @@ import { ListAdvisorsComponent } from './components/Student/list-advisors/list-a
 import { ShowProfileAdviserComponent } from './components/Student/show-profile-adviser/show-profile-adviser.component';
 import { PagePrincipalComponent } from './components/Advisor/page-principal/page-principal.component';
 import { DashboardAdvisorComponent } from './components/Advisor/dashboard-advisor/dashboard-advisor.component';
+import { CreateAdvisoryAdvisorComponent } from './components/Advisor/create-advisory-advisor/create-advisory-advisor.component';
 
 export const routes: Routes = [
     {
@@ -77,6 +78,11 @@ export const routes: Routes = [
         path: 'advisor',
         title: 'Dashboard Advisor',
         component: DashboardAdvisorComponent
+      },
+      {
+        path: 'create-advisory-student',
+        title: 'Create Advisory',
+        component: CreateAdvisoryAdvisorComponent  
       },
 ]
 },
