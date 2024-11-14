@@ -95,6 +95,12 @@ export class ListAdvisoryAdvisorComponent {
         const index = this.advisories.findIndex(a => a.id === updatedAdvisory.id);
         if (index !== -1) {
           this.advisories[index] = updatedAdvisory;
+
+          setTimeout(() => {
+            this.confirmation = false;
+            this.reloadPage();
+          }, 1000); 
+         
         }
         this.selectedAdvisory = null;
       },

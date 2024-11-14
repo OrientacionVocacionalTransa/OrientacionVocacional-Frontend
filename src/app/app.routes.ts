@@ -18,6 +18,10 @@ import { ProfileAdvisorComponent } from './components/Advisor/profile-advisor/pr
 import { authenticatedGuard } from './Authentication/guards/authenticated.guard';
 import { studentGuardGuard } from './Authentication/guards/student-guard.guard';
 import { advisorGuardGuard } from './Authentication/guards/advisor-guard.guard';
+import { ShowProfileStudentComponent } from './components/Advisor/show-profile-student/show-profile-student.component';
+import { VocationalTestComponent } from './components/vocational-test/vocational-test.component';
+import { RestPasswordComponent } from './components/Auth/rest-password/rest-password.component';
+import { ForgotPasswordComponent } from './components/Auth/forgot-password/forgot-password.component';
 
 export const routes: Routes = [
   // Rutas sin autenticación
@@ -33,8 +37,18 @@ export const routes: Routes = [
     component: RegisterComponent,
     canActivate: [authenticatedGuard]
   },
-  
-  
+  {
+    path: 'forgot-password',
+    title: 'Recuperar contraseña',
+    component: ForgotPasswordComponent,
+    canActivate: [authenticatedGuard]
+  },
+  {
+    path: 'reset-password',
+    title: 'Cambiar Contraseña',
+    component: RestPasswordComponent,
+    canActivate: [authenticatedGuard]
+  },
   {
     path: 'application-advisor',
     title: 'Aplicación a asesor',
@@ -85,6 +99,12 @@ export const routes: Routes = [
     ],
     canActivate: [studentGuardGuard] 
   },
+  {
+    path: 'test-vocational',
+    title: 'Test Vocacional',
+    component: VocationalTestComponent,
+    canActivate: [studentGuardGuard]
+  },
   
   
 
@@ -123,10 +143,23 @@ export const routes: Routes = [
         component: ProfileAdvisorComponent,
         canActivate: [advisorGuardGuard]
       },
-      
+      {
+        path: 'student-profile/:id',
+        title: 'Perfil Estudiante',
+        component: ShowProfileStudentComponent,
+        canActivate: [advisorGuardGuard]
+      },
     ],
     canActivate: [advisorGuardGuard]  
   },
+
+
+
+  
+  
+  
+
+  
 
   // Ruta por defecto y redireccionamiento
   {
