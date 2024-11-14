@@ -1,0 +1,174 @@
+.profile-edit-container{
+    margin-top: 100px;
+}
+
+.profile-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+    
+    .profile-card {
+      text-align: center;
+  
+      .profile-image {
+        border-radius: 10px;
+        width: 150px; // Ajusté el tamaño de la imagen
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 20px;
+      }
+  
+      h2 {
+        font-size: 22px;
+        margin: 10px 0;
+      }
+  
+      p {
+        font-size: 16px;
+        margin: 8px 0;
+      }
+  
+      h3 {
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+  
+    .profile-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+  
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        label {
+          font-size: 14px;
+          margin-bottom: 5px;
+          margin-top: 20px;
+        }
+        input {
+          padding: 8px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          font-size: 14px;
+          width: 100%;
+          margin-top: 16px;
+        }
+      }
+  
+      .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+  
+        .edit-button,
+        .new-session-button {
+          padding: 8px 16px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+        }
+  
+        .edit-button {
+          background-color: #2d2a75;
+          color: white;
+          border: 1px solid #fff;
+            margin-top: 60px;
+          &:hover {
+            background-color: #1f1a4b;
+          }
+        }
+  
+        .new-session-button {
+          background-color: #ff7f00;
+          color: white;
+          border: none;
+  
+          &:hover {
+            background-color: #d96c00;
+          }
+        }
+      }
+    }
+  
+    .horario-container {
+      .horario-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+  
+      .horario-escalera {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+  
+        .horario-item {
+          display: flex;
+          justify-content: space-between;
+          background-color: #2d2a75;
+          color: white;
+          padding: 8px 15px;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
+  
+  /* Media Queries para Responsividad */
+  
+  /* Pantallas de laptop pequeñas y tablets */
+  @media (max-width: 1024px) {
+    .profile-container {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+  
+    .profile-card {
+      .profile-image {
+        width: 120px; // Reduzco el tamaño de la imagen para tablets
+        height: 120px;
+      }
+  
+      h2 {
+        font-size: 20px;
+      }
+  
+      p,
+      h3 {
+        font-size: 16px;
+      }
+    }
+  }
+  
+  /* Pantallas de móvil */
+  @media (max-width: 768px) {
+    .profile-container {
+      grid-template-columns: 1fr;
+      padding: 20px;
+      gap: 20px;
+    }
+  
+    .profile-card {
+      .profile-image {
+        width: 100px; // Imagen más pequeña para móvil
+        height: 100px;
+      }
+  
+      h2 {
+        font-size: 18px;
+      }
+  
+      p,
+      h3 {
+        font-size: 14px;
+      }
+    }
+  
+    .button-group {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
