@@ -23,7 +23,7 @@ export class ProfileAdvisorComponent {
     this.authService.getUserInfo().subscribe({
       next: (data) => {
         this.user = data;
-        console.log(data)
+        
       },
       error: (err) => {
         console.error('Error al obtener la información del usuario', err);

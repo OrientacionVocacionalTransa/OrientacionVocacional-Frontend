@@ -15,61 +15,78 @@ import { CreateAdvisoryAdvisorComponent } from './components/Advisor/create-advi
 import { ListAdvisoryAdvisorComponent } from './components/Advisor/list-advisory-advisor/list-advisory-advisor.component';
 import { ListStudentsComponent } from './components/Advisor/list-students/list-students.component';
 import { ProfileAdvisorComponent } from './components/Advisor/profile-advisor/profile-advisor.component';
+import { authenticatedGuard } from './Authentication/guards/authenticated.guard';
+import { studentGuardGuard } from './Authentication/guards/student-guard.guard';
+import { advisorGuardGuard } from './Authentication/guards/advisor-guard.guard';
 
 export const routes: Routes = [
-    {
-        path: 'login',
-        title: 'Iniciar Sesion',
-        component: LoginComponent
-      },
-
-      {
-        path: 'register',
-        title: 'Registrarse',
-        component: RegisterComponent
-      },
-
-      {
-        path: 'application-advisor',
-        title: 'Aplicación a asesor',
-        component: ApplicationAdvisorComponent
-      },
-      {
-        path: 'dashboard-student',
-        title: 'Dashboard Student',
-        component: DashboardFreeComponent,
-        children:[
-          {
-            path: '',
-            title: 'Dashboard Student',
-            component: CareersComponent
-          },
-
-          {
-            path: 'profile-student',
-            title: 'Profile Student',
-            component: ProfileStudentComponent
-          },  
-          
-          {
-            path: 'list-advisories',
-            title: 'Asesorias',
-            component: ListAdvisoryStudentComponent
-          },
-          {
-            path: 'advisors',
-            title: 'Asesores',
-            component: ListAdvisorsComponent
-          },
-
-         {
-          path: 'adviser-profile/:id',
-          title: 'Perfil Asesor',
-          component: ShowProfileAdviserComponent
-        }
-
-        ]
+  // Rutas sin autenticación
+  {
+    path: 'login',
+    title: 'Iniciar Sesion',
+    component: LoginComponent,
+    canActivate: [authenticatedGuard]
   },
+  {
+    path: 'register',
+    title: 'Registrarse',
+    component: RegisterComponent,
+    canActivate: [authenticatedGuard]
+  },
+  
+  
+  {
+    path: 'application-advisor',
+    title: 'Aplicación a asesor',
+    component: ApplicationAdvisorComponent,
+    canActivate: [authenticatedGuard]
+  },
+
+  // Rutas para el rol de estudiante
+
+  
+  {
+    path: 'dashboard-student',
+    title: 'Dashboard Student',
+    component: DashboardFreeComponent,
+    children:[
+      {
+        path: '',
+        title: 'Dashboard Student',
+        component: CareersComponent,
+        canActivate: [studentGuardGuard]
+      },
+      
+      {
+        path: 'profile-student',
+        title: 'Profile Student',
+        component: ProfileStudentComponent,
+        canActivate: [studentGuardGuard]
+      },
+      {
+        path: 'list-advisories',
+        title: 'Asesorias',
+        component: ListAdvisoryStudentComponent,
+        canActivate: [studentGuardGuard]
+      },
+      {
+        path: 'advisors',
+        title: 'Asesores',
+        component: ListAdvisorsComponent,
+        canActivate: [studentGuardGuard]
+      },
+
+      {
+        path: 'adviser-profile/:id',
+        title: 'Perfil Asesor',
+        component: ShowProfileAdviserComponent,
+        canActivate: [studentGuardGuard]
+      }
+    ],
+    canActivate: [studentGuardGuard] 
+  },
+  
+  
 
   {
     path: 'dashboard',
@@ -79,38 +96,47 @@ export const routes: Routes = [
       {
         path: 'advisor',
         title: 'Dashboard Advisor',
-        component: DashboardAdvisorComponent
-      },
-      {
-        path: 'create-advisory-student',
-        title: 'Create Advisory',
-        component: CreateAdvisoryAdvisorComponent  
-      },
-      {
-        path: 'list-advisories',
-        title: 'Advisories',
-        component: ListAdvisoryAdvisorComponent
+        component: DashboardAdvisorComponent,
+        canActivate: [advisorGuardGuard]
       },
       {
         path: 'list-student',
         title: 'Students',
-        component: ListStudentsComponent
+        component: ListStudentsComponent,
+        canActivate: [advisorGuardGuard]
+      },
+      {
+        path: 'create-advisory-student',
+        title: 'Create Advisory',
+        component: CreateAdvisoryAdvisorComponent,
+        canActivate: [advisorGuardGuard]  
+      },
+      {
+        path: 'list-advisories',
+        title: 'Advisories',
+        component: ListAdvisoryAdvisorComponent,
+        canActivate: [advisorGuardGuard]
       },
       {
         path: 'profile-advisor',
         title: 'Profile Advisor',
-        component: ProfileAdvisorComponent
+        component: ProfileAdvisorComponent,
+        canActivate: [advisorGuardGuard]
       },
-]
-},
+      
+    ],
+    canActivate: [advisorGuardGuard]  
+  },
 
-    {
-        path: '**',
-        redirectTo: 'home'
-      },
-      {
-        path: 'home',
-        title: 'Home',
-        component: HomePageComponent
-      }
+  // Ruta por defecto y redireccionamiento
+  {
+    path: '**',
+    redirectTo: 'home'
+  },
+  {
+    path: 'home',
+    title: 'Home',
+    component: HomePageComponent,
+    canActivate: [authenticatedGuard]
+  }
 ];
