@@ -9,6 +9,7 @@ import { ProfileStudentComponent } from './components/Student/profile-student/pr
 import { ListAdvisoryStudentComponent } from './components/Student/list-advisory-student/list-advisory-student.component';
 import { ListAdvisorsComponent } from './components/Student/list-advisors/list-advisors.component';
 import { ShowProfileAdviserComponent } from './components/Student/show-profile-adviser/show-profile-adviser.component';
+import { PagePrincipalComponent } from './components/Advisor/page-principal/page-principal.component';
 
 export const routes: Routes = [
     {
@@ -65,6 +66,13 @@ export const routes: Routes = [
 
         ]
   },
+
+  {
+    path: 'dashboard',
+    title: 'Dashboard Advisor',
+    component: PagePrincipalComponent
+},
+
     {
         path: '**',
         redirectTo: 'home'
