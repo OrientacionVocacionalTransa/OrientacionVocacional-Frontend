@@ -13,15 +13,29 @@
         </div>
   
         <div class="column">
-            <div class="input-box">
-                <label for="date">Fecha</label>
-                <input id="date" formControlName="date" type="date" required>
-            </div>
-  
-            <div class="input-box">
-                <label for="time">Hora</label>
-                <input id="time" formControlName="time" type="time" placeholder="00:00:00" required>
-            </div>        
+          <div class="input-box">
+            <label for="date">Fecha</label>
+            <input
+              id="date"
+              formControlName="date"
+              type="date"
+              [min]="minDate"
+              (change)="onDateChange()"
+              required
+            >
+          </div>
+          
+          <div class="input-box">
+            <label for="time">Hora</label>
+            <input
+              id="time"
+              formControlName="time"
+              type="time"
+              [min]="minTime"
+              [disabled]="!isTimeEnabled"
+              required
+            >
+          </div>        
         </div>
   
         <div class="select-box">
