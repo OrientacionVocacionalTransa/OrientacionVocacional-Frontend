@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { FileResponse, User } from '../../../Authentication/auth.model';
 import { AuthService } from '../../../service/auth.service';
 import { VocationalTestService } from '../../../service/vocational-test.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile-student-premium',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './profile-student-premium.component.html',
   styleUrl: './profile-student-premium.component.scss'
 })

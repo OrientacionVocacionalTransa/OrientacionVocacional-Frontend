@@ -1,53 +1,53 @@
 <div class="test-vocacional">
-    <div class="header">
-      <div class="logo-container">
-        <a routerLink="/home">
-          <img src="mi-logo.png" alt="T-UPAO" class="logo" />
-        </a>
-      </div>
+  <div class="header">
+    <div class="logo-container">
+      <a routerLink="/home">
+        <img src="mi-logo.png" alt="T-UPAO" class="logo" />
+      </a>
     </div>
-  
-    
-    <div *ngIf="questions && questions.length > 0" class="containerquestion">
-      <h1>Test Vocacional</h1>
-  
-     
-      <div class="progress-bar-container">
-        <div class="progress-bar">
-          <div class="progress" [style.width]="getProgress() + '%'"></div>
-        </div>
-      </div>
-  
-      <!-- Contenido principal -->
-      <div class="content-container">
-        <img src="https://uniscopio.com/wp-content/uploads/2019/11/Habitos-de-Estudio.png" alt="Imagen Pregunta" class="question-image" width="220" height="auto" />
-        <!-- Mostrar la pregunta actual mientras no se haya llegado al final -->
-        <div *ngIf="currentQuestionIndex < questions.length; else showResult" class="question-container">
-          <h3>Pregunta {{ currentQuestionIndex + 1 }} de {{ questions.length }}</h3>
-          <p>{{ questions[currentQuestionIndex].text }}</p>
-  
-          <!-- Botones de opciones -->
-          <div class="button-container">
-            <button *ngFor="let option of questions[currentQuestionIndex].options" 
-                    (click)="selectOption(option)" class="btn btn-interes">
-              {{ option.text }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <!-- Mostrar el resultado del test cuando todas las preguntas hayan sido respondidas -->
-    <ng-template #showResult>
-      <div class="result-card">
-        <h3>Resultado del Test Vocacional</h3>
-        <p>Área recomendada: <strong>{{ testResult.area || 'No se pudo determinar el área' }}</strong></p>
-        <ul>
-          <li *ngFor="let carrera of testResult.careers">{{ carrera }}</li>
-        </ul>
-      </div>
-      <button class="btn btn-interes">
-        <a routerLink="/pageprincipal">Volver al inicio</a>
-      </button>
-    </ng-template>
   </div>
+
+
+  <div *ngIf="questions && questions.length > 0" class="containerquestion">
+    <h1>Test para la identificación de intereses vocacionales y profesionales</h1>
+    <p>Puntos a tomar en cuenta:</p>
+    <p>- No puedes retroceder a la pregunta anterior</p>
+    <p>- El test no guarda el progreso, deberás responder todas las preguntas para saber tu resultado</p>
+    <p>*Test elaborado por las psicologas Maica de Goldenberg y Magali Merchan</p>
+   
+    <div class="progress-bar-container">
+      <div class="progress-bar">
+        <div class="progress" [style.width]="getProgress() + '%'"></div>
+      </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="content-container">
+      <img src="https://uniscopio.com/wp-content/uploads/2019/11/Habitos-de-Estudio.png" alt="Imagen Pregunta" class="question-image" width="220" height="auto" />
+      <!-- Mostrar la pregunta actual mientras no se haya llegado al final -->
+      <div *ngIf="currentQuestionIndex < questions.length" class="question-container">
+        <h3>Pregunta {{ currentQuestionIndex + 1 }} de {{ questions.length }}</h3>
+        <p>{{ questions[currentQuestionIndex].text }}</p>
+
+        <!-- Botones de opciones -->
+        <div class="button-container">
+          <button *ngFor="let option of questions[currentQuestionIndex].options" 
+                  (click)="selectOption(option)" class="btn btn-interes">
+            {{ option.text }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="overlay" *ngIf="isLoading || showConfirmation">
+    <div *ngIf="isLoading" class="spinner"></div>
+    <div *ngIf="showConfirmation" class="checkmark">
+      <div class="checkmark-circle"></div>
+      <div class="checkmark-stem"></div>
+      <div class="checkmark-kick"></div>
+    </div>
+    <p>Cargando resultados...</p>
+  </div>
+</div>

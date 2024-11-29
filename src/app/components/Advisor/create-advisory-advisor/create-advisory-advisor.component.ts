@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdvisoryService } from '../../../service/advisory.service';
 import { CommonModule, formatDate } from '@angular/common';
+import { AuthService } from '../../../service/auth.service';
+import { SolicitationService } from '../../../service/solicitation.service';
 
 @Component({
   selector: 'app-create-advisory-advisor',
@@ -14,13 +16,14 @@ export class CreateAdvisoryAdvisorComponent {
   advisoryForm: FormGroup;
   students: any[] = [];
   isLoading: boolean = false;  
-  showConfirmation: boolean = false; 
-  loadingMessage: string = "Procesando...";  
+  showConfirmation: boolean = false;  
+  loadingMessage: string = "Procesando..."; 
   minDate: string = ''; 
   minTime: string = ''; 
   isTimeEnabled: boolean = false; 
+  adviserId: number | null = null;
 
-  constructor(private fb: FormBuilder, private advisoryService: AdvisoryService) {
+  constructor(private fb: FormBuilder, private advisoryService: AdvisoryService, private authService: AuthService, private solicitationService: SolicitationService) {
     this.advisoryForm = this.fb.group({
       link: ['', Validators.required],
       name: ['', Validators.required],
@@ -34,38 +37,44 @@ export class CreateAdvisoryAdvisorComponent {
     this.loadAdvisers();
     this.minDate = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   }
+
+
   onDateChange(): void {
     const selectedDate = this.advisoryForm.get('date')?.value;
     const today = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
   
     if (selectedDate === today) {
-      // Si la fecha seleccionada es hoy, calcula la hora mínima (actual)
+      
       this.isTimeEnabled = true;
       this.minTime = this.getCurrentTime();
     } else if (selectedDate > today) {
-      // Si la fecha es futura, no hay restricción de hora mínima
+      
       this.isTimeEnabled = true;
       this.minTime = '00:00';
     } else {
-      // Si la fecha es inválida (pasada), deshabilita el campo de tiempo
+     
       this.isTimeEnabled = false;
       this.minTime = '';
     }
   }
   
   private getCurrentTime(): string {
-    // Obtiene la hora actual en formato HH:mm
+    
     const now = new Date();
     const hours = String(now.getHours()).padStart(2, '0');
     const minutes = String(now.getMinutes()).padStart(2, '0');
     return `${hours}:${minutes}`;
   }
+  
 
   loadAdvisers(): void {
-    this.advisoryService.getStudents().subscribe(data => {
-      this.students = data;
-      
-    });
+    this.adviserId = this.authService.getUserId();
+    if (this.adviserId) {
+      this.solicitationService.getAcceptedStudents(this.adviserId).subscribe({
+        next: (data) => this.students = data,
+        error: (err) => console.error(err)
+      });
+    }
   }
 
   createAdvisory(): void {
@@ -74,7 +83,7 @@ export class CreateAdvisoryAdvisorComponent {
     const currentDate = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
     const currentTime = this.getCurrentTime();
   
-    
+    // Validación adicional para horas pasadas en el día actual
     if (selectedDate === currentDate && selectedTime < currentTime) {
       alert('No puedes seleccionar horas pasadas.');
       return;
@@ -99,9 +108,13 @@ export class CreateAdvisoryAdvisorComponent {
         }, 3000);
       },
       error => {
-        console.log(error);
         this.isLoading = false;
-        this.loadingMessage = "Hubo un error, por favor intente nuevamente.";
+        if (error.status === 500 && error.error.message === "El estudiante ya tiene 2 asesorías programadas este mes.") {
+          alert("El estudiante ya tiene 2 asesorías programadas este mes.") ;
+        } else {
+       
+          this.loadingMessage = "Hubo un error, por favor intente nuevamente.";
+        }
       }
     );
   }

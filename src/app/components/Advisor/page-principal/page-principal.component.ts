@@ -1,16 +1,19 @@
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
-import { Adviser } from '../../../Authentication/auth.model';
-import { HomePageService } from '../../../service/home-page.service';
-import { AuthService } from '../../../service/auth.service';
-import { VocationalTestService } from '../../../service/vocational-test.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
+import { AuthService } from '../../../service/auth.service';
+import { HomePageService } from '../../../service/home-page.service';
+import { VocationalTestService } from '../../../service/vocational-test.service';
+import { SolicitationService } from '../../../service/solicitation.service';
+import { Adviser, Solicitation } from '../../../Authentication/auth.model';
 
 @Component({
   selector: 'app-page-principal',
   standalone: true,
-  imports: [CommonModule,RouterLink,ReactiveFormsModule,FormsModule,RouterOutlet,RouterLinkActive],
+  imports: [CommonModule, RouterLink, ReactiveFormsModule, FormsModule, RouterOutlet, RouterLinkActive, HttpClientModule],
   templateUrl: './page-principal.component.html',
   styleUrl: './page-principal.component.scss'
 })
@@ -26,16 +29,17 @@ export class PagePrincipalComponent {
   carreraSeleccionada2: any = null;
   user: Adviser | null = null;
   showTestWarning: boolean = false; 
+  solicitations: Solicitation[] = [];
 
   constructor(
-    private carreraService: HomePageService,
+    
     private authService: AuthService,
-    private vocational: VocationalTestService,
+    private solicitationService: SolicitationService,
     private cd: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-
+    this.loadSolicitations();
     this.getUserInfo();
   }
 
@@ -45,7 +49,7 @@ export class PagePrincipalComponent {
 
     this.authService.getUserInfo().subscribe({
       next: (data) => {
-        this.user = data; // Asigna los detalles del usuario// Cargar las carreras despuÃ©s de obtener el usuario
+        this.user = data; // Asigna los detalles del usuario// Cargar las carreras después de obtener el usuario
       },
       error: (err) => {
         
@@ -54,11 +58,52 @@ export class PagePrincipalComponent {
     });
   }
 
+
+  
   
 
   logout(): void {
     this.authService.logout();
+    
   }
+
+
+  loadSolicitations(): void {
+    const adviserId = this.authService.getUserId(); 
+  
+    if (!adviserId) {
+      console.error('Error: No se pudo obtener el ID del asesor. Asegúrate de haber iniciado sesión.');
+      return;
+    }
+  
+    this.solicitationService.getSolicitationsForAdviser(adviserId).subscribe({
+      next: (data) => {
+
+        this.solicitations = data.filter((solicitation: any) => solicitation.status !== 'REJECTED');
+      },
+      error: (err) => {
+        console.error('Error al cargar las solicitudes:', err);
+        alert('Ocurrió un error al cargar las solicitudes. Por favor, inténtalo nuevamente.');
+      }
+    });
+  }
+
+
+  respondToSolicitation(solicitationId: number, status: 'ACCEPTED' | 'REJECTED'): void {
+    this.solicitationService.respondToSolicitation(solicitationId, status).subscribe({
+      next: () => {
+        alert('Solicitud actualizada.');
+        // Actualiza la lista visible en el frontend
+        if (status === 'REJECTED') {
+          this.solicitations = this.solicitations.filter(solicitation => solicitation.id !== solicitationId);
+        } else {
+          this.loadSolicitations(); // Recarga las solicitudes aceptadas
+        }
+      },
+      error: (err) => console.error(err)
+    });
+  }
+  
 
   ngAfterViewInit() {
     this.menuBtn.nativeElement.addEventListener('click', () => {
@@ -82,5 +127,4 @@ export class PagePrincipalComponent {
     this.closeBtn.nativeElement.removeEventListener('click', this.closeBtn.nativeElement.click);
     this.themeToggler.nativeElement.removeEventListener('click', this.themeToggler.nativeElement.click);
   }
-
 }

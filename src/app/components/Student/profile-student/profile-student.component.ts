@@ -17,6 +17,8 @@ export class ProfileStudentComponent {
   user: User = { firstName: '', lastName: '', email: '', img_profile: '' };  // Información del usuario
   selectedFile: File | null = null;  // Variable para almacenar el archivo seleccionado
   areasConCarreras: any[] = [];
+  isNameDisabled: boolean = true;
+isLastNameDisabled: boolean = true;
   constructor(private profileService: AuthService, private http: HttpClient, private vocational: VocationalTestService) {}
 
   ngOnInit(): void {
@@ -31,7 +33,13 @@ export class ProfileStudentComponent {
       }
     });
   }
-
+  toggleField(field: string): void {
+    if (field === 'name') {
+      this.isNameDisabled = !this.isNameDisabled; // Alterna el estado de habilitado/deshabilitado
+    } else if (field === 'lastName') {
+      this.isLastNameDisabled = !this.isLastNameDisabled; // Alterna el estado de habilitado/deshabilitado
+    }
+  }
 
   loadCarreras(userId: number): void {
     this.vocational.getCarrerasByUser(userId).subscribe(
@@ -90,7 +98,7 @@ export class ProfileStudentComponent {
       },
       error: (err) => {
         console.error('Error al actualizar el perfil', err);
-        alert('Hubo un error al actualizar el perfil');
+        alert(err.error.message || 'Hubo un error al actualizar el perfil');
       }
     });
   }

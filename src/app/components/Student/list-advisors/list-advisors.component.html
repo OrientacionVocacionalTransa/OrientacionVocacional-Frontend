@@ -1,8 +1,8 @@
-<div ngIf="advisors.length === 0" class="no-students-message">
+<div *ngIf="advisors.length === 0" class="no-students-message">
   <p>No hay asesores disponibles.</p>
 </div>
 <h1 class="title">Los mejores asesores a tu disposición!</h1>
-<div class="blog-card"ngFor="let advisor of advisors">
+<div class="blog-card" *ngFor="let advisor of advisors">
   <div class="meta">
     <div class="photo" [style.background-image]="'url(' + advisor.img_profile + ')'"></div>
   </div>
@@ -15,13 +15,13 @@
     </p>
 
  
-        <p class="read-more" ngIf="solicitationStatuses.get(advisor.id!) !== 'ACCEPTED' && solicitationStatuses.get(advisor.id!) !== 'PENDING'" 
+        <p class="read-more" *ngIf="solicitationStatuses.get(advisor.id!) !== 'ACCEPTED' && solicitationStatuses.get(advisor.id!) !== 'PENDING'" 
         (click)="sendSolicitation(advisor.id!)">
           <a> Solicitar asesoría</a>
         </p>
 
 
-<pngIf="solicitationStatuses.get(advisor.id!) === 'PENDING'" disabled >
+<p *ngIf="solicitationStatuses.get(advisor.id!) === 'PENDING'" disabled >
 
   Esperando respuesta...
 

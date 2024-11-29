@@ -44,7 +44,7 @@
     </aside>
 
 
-
+    
     <main>
         <router-outlet></router-outlet>
     </main>
@@ -61,7 +61,7 @@
                 <span class="material-icons-sharp active">light_mode</span>
                 <span class="material-icons-sharp">dark_mode</span>
             </div>
-            <div class="profile" ngIf="user">
+            <div class="profile" *ngIf="user">
                 <div class="info" >
                     <p>Bienvenido, <b>{{user.firstName}}</b></p>
                 </div>
@@ -72,7 +72,7 @@
         </div>
 
         <div class="solicitudes">
-            <divngFor="let solicitation of solicitations">
+            <div *ngFor="let solicitation of solicitations">
                 <div class="solicitation-card" [ngClass]="{'accepted': solicitation.status === 'ACCEPTED'}">
                 <div class="info">
                   <img [src]="solicitation.student.img_profile" alt="Perfil del estudiante" class="profile-image" />
@@ -89,10 +89,21 @@
               </div>
             </div>
           </div>
+       
 
-
-
+        
     </div>
 
-
+    
 </div>
+
+
+
+
+
+
+
+
+
+
+
