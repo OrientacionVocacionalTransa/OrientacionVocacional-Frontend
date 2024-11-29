@@ -4,6 +4,8 @@ import { AdvisoryService } from '../../../service/advisory.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { SolicitationService } from '../../../service/solicitation.service';
+import { AuthService } from '../../../service/auth.service';
 
 @Component({
   selector: 'app-list-students',
@@ -13,32 +15,23 @@ import { RouterLink } from '@angular/router';
   styleUrl: './list-students.component.scss'
 })
 export class ListStudentsComponent {
-
   students: StudentDTO[] = [];
-  loading = false;
-  confirmation = false;
 
-  constructor(private advisoryService: AdvisoryService) {
+  adviserId: number | null = null;
+
+  constructor(private solicitationService: SolicitationService, private authService: AuthService) {
     
   }
-  ngOnInit() {
-      this.loadStudents();
-  }
-
-  private getStudentIdFromToken(): number {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-     
-      return payload.userId;
+  ngOnInit(): void {
+    this.adviserId = this.authService.getUserId();
+    if (this.adviserId) {
+      this.solicitationService.getAcceptedStudents(this.adviserId).subscribe({
+        next: (data) => this.students = data,
+        error: (err) => console.error(err)
+      });
     }
-    return 0;
   }
+  
 
-  loadStudents() {
-    this.advisoryService.getStudents().subscribe(
-      data => this.students = data,
-      error => console.error(error)
-    );
-  }
+  
 }
