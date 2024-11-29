@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PlansService } from '../../service/plans.service';
 
@@ -9,7 +9,7 @@ import { PlansService } from '../../service/plans.service';
   templateUrl: './payment-success.component.html',
   styleUrl: './payment-success.component.scss'
 })
-export class PaymentSuccessComponent {
+export class PaymentSuccessComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private plansService: PlansService,

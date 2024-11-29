@@ -1,13 +1,13 @@
-<div class="title">
+  <div class="title">
     <h1>Editar Perfil Estudiante</h1>
   </div>
   <main class="profile-container">
     <section class="profile-card">
       <img [src]="user.img_profile" alt="Foto de perfil" class="profile-image">
       <h2>Bienvenido {{ user.firstName }}</h2>
-      <div ngIf="areasConCarreras.length > 0">
+      <div *ngIf="areasConCarreras.length > 0">
         <h2>Tu Área recomendada:</h2>
-        <divngFor="let area of areasConCarreras">
+        <div *ngFor="let area of areasConCarreras">
           <h3>{{ area.areaName }}</h3> <!-- Muestra el nombre del área -->
         </div>
       </div>
