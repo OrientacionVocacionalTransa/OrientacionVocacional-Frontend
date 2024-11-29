@@ -37,6 +37,13 @@ export class AuthService {
     return this.http.get(`${this.apiUrlStudent}/getStudent/${id}`, { headers });
   }
 
+
+  getUserById(id: string): Observable<any> {
+    const token = localStorage.getItem(this.tokenKey);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.apiUrl}/getUser/${id}`, { headers });
+  }
+  
   resendVerificationCode(email: string): Observable<any> {
     const params = new HttpParams()
       .set('email', email);
