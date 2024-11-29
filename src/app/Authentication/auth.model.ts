@@ -47,3 +47,11 @@ export interface AdvisoryDTO {
     message: string;
     token: string;
   }
+
+  export interface Solicitation {
+    id: number;
+    student:StudentDTO;
+    adviser: Adviser;
+    status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+    createdAt: string;
+  }
