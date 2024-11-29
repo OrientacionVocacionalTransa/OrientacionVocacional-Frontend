@@ -71,3 +71,9 @@ export interface AdvisoryDTO {
     startTime: string;
     endTime: string;
   }
+  export interface Plan {
+    id: number;
+    name: string;
+    price: number;
+    description: string;
+  }
