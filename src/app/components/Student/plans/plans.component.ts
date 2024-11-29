@@ -57,8 +57,8 @@ createPurchase(plan: any): void {
   this.planService.createPurchase(purchaseData).subscribe(response => {
     const orderPay = {
       purchaseId: response.id,
-      returnUrl: 'http://localhost:4200/success',
-      cancelUrl: 'http://localhost:4200/dashboard-student-free/plans'
+      returnUrl: 'https://orientacion-vocacional-three.vercel.app/success',
+      cancelUrl: 'https://orientacion-vocacional-three.vercel.app/dashboard-student-free/plans'
     }
     this.planService.createPaymentOrder(orderPay.purchaseId, orderPay.returnUrl, orderPay.cancelUrl).subscribe(response => {
       window.location.href = response.paypalUrl;
