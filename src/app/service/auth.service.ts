@@ -15,6 +15,15 @@ export class AuthService {
   private apiUrlAsesor = `${environment.apiUrl}api/v1/adviser`; 
   constructor(private http: HttpClient, private router: Router) { }
 
+  cancelPlan(studentId: number): Observable<any> {
+    const token = localStorage.getItem(this.tokenKey); // O el lugar donde almacenas el token
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    return this.http.put(`${this.apiUrlStudent}/${studentId}/cancel-plan`, {}, { headers });
+  }
 
   
   registerStudent(requestBody: any): Observable<any> {
