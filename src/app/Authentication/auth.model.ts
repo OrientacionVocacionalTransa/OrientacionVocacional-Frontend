@@ -77,3 +77,13 @@ export interface AdvisoryDTO {
     price: number;
     description: string;
   }
+
+
+  export interface Admin{
+    id?: number;
+    img_profile?: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password?: string;
+  }

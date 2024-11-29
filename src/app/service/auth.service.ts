@@ -52,6 +52,11 @@ export class AuthService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get(`${this.apiUrl}/getUser/${id}`, { headers });
   }
+  registerAdviser(requestBody: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/registerAdviser`, requestBody).pipe(
+      catchError(this.handleError)
+    );
+  }
   
   resendVerificationCode(email: string): Observable<any> {
     const params = new HttpParams()
@@ -82,7 +87,29 @@ export class AuthService {
     return throwError('Hubo un problema con el registro; por favor intenta nuevamente.');
   }
   
+  getEmailFromToken(): string | null {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.email || null;  // Aquí obtenemos el email del payload
+    }
+    return null;
+  }
 
+  changePassword(email: string, newPassword: string): Observable<any> {
+    const params = new HttpParams()
+      .set('email', email)
+      .set('newPassword', newPassword);
+  
+    return this.http.post<any>(`${this.apiUrl}/change-password`, null, { params });
+  }
+  changePasswordAdmin(email: string, newPassword: string): Observable<any> {
+    const params = new HttpParams()
+      .set('email', email)
+      .set('newPassword', newPassword);
+  
+    return this.http.post<any>(`${this.apiUrl}/change-password-admin`, null, { params });
+  }
 
   forgotPassword(email: string) {
     const body = new HttpParams().set('email', email);
@@ -124,24 +151,42 @@ obtenerPerfil() {
 }
 
 
-login(email: string, password: string, callback: (token: string) => void): Observable<any> {
+login(email: string, password: string, callback: (token: string) => void):  Observable<any> {
   const params = new HttpParams()
     .set('email', email)
     .set('password', password);
-  
+
   return this.http.post<any>(`${this.apiUrl}/login`, null, { params }).pipe(
     tap(response => {
+ 
       if (response.token) {
         this.setToken(response.token);
 
         // Obtener el rol del usuario desde el token
         const userRole = this.getRoleFromToken();
 
-        // Redirigir según el rol
-        if (userRole === 'STUDENT') {
+        if (userRole === 'ADVISER') {
+         
+          if (response.requiresPasswordChange) {
+           
+            this.router.navigate(['/dashboard/change-password']);
+          } else {
+            
+            this.router.navigate(['/dashboard/advisor']);
+          }
+        } else if (userRole === 'ADMIN') {
+         
+          if (response.requiresPasswordChange) {
+           
+            this.router.navigate(['/dashboard-admin/change-password']);
+          } else {
+            
+            this.router.navigate(['/dashboard-admin/register-advisor']);
+          }
+        }
+         else if (userRole === 'STUDENT') {
+          
           this.router.navigate(['/dashboard-student']);
-        } else if (userRole === 'ADVISER') {
-          this.router.navigate(['/dashboard/advisor']);
         } else {
           console.error('Rol de usuario no reconocido');
         }
@@ -205,7 +250,6 @@ getUserInfo(): Observable<Adviser> {
   );
 }
 
-
 updateUserProfile(userData: any): Observable<User> {
   const token = this.getToken(); // Obtiene el token del localStorage
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -222,9 +266,29 @@ updateUserProfileImage(file: FormData): Observable<FileResponse> {
 
 
 getUserId(): number | null {
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  return user ? user.id : null;
+  const token = localStorage.getItem(this.tokenKey);
+  if (!token) {
+    return null; // No hay token almacenado
+  }
+
+  try {
+    // Dividimos el token JWT en sus tres partes: header, payload, signature
+      const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.userId || null; // Devuelve el userId si existe, o null
+  } catch (error) {
+    console.error('Error al decodificar el token JWT:', error);
+    return null;
+  }
 }
 
+getPlanFromToken(): string | null {
+  const token = localStorage.getItem('authToken');
+  if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+     
+      return payload.plan || null;
+  }
+  return null;
+}
 }
 

@@ -1,3 +1,5 @@
+
+
 .container {
     display: grid;
     width: 96%;
@@ -135,6 +137,13 @@ aside .sidebar a:last-child {
     bottom: 2rem;
     width: 100%;
 }
+
+aside .sidebar a.activepremium {
+    background: var(--orange-color);
+    color: var(--blue-color);
+    margin-left: 0;
+}
+
 
 aside .sidebar a.active:hover {
     background: var(--orange-color);
@@ -651,3 +660,6 @@ main .recent-orders a {
         font-size: 2rem;
     }
 }
+
+
+
